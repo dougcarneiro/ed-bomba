@@ -4,7 +4,7 @@ from data_struct.data_type import DataType
 from data_struct.generic_data_struct import GenericDataStruct
 
 
-class ListaSimplesCircular(GenericDataStruct):
+class Lista(GenericDataStruct):
     '''
     Esta classe implementa uma estrutura Lista Simplesmente Encadeada Circular
     '''
@@ -49,6 +49,7 @@ class ListaSimplesCircular(GenericDataStruct):
         if validation:
             raise ListaException(validation)
         cursor = self.get_node(position, minus=1)
+        removed = cursor.next
         previous = cursor
         cursor = cursor.next
 
@@ -60,6 +61,7 @@ class ListaSimplesCircular(GenericDataStruct):
             previous.next = cursor.next
 
         self.size -= 1
+        return removed
     
     def move_around(self, times, start_node=None):
         count = 1

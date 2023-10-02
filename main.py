@@ -58,10 +58,12 @@ def new_simulation(content_data=None):
             try:
                 participants_num = int(
                     input('Digite a quantidade de participantes: '))
-                assert participants_num > winners_num
+                assert participants_num > winners_num, 'O número de participantes deve ser maior que o de vencedores.'
                 break
             except ValueError:
                 print('Insira um valor válido.')
+            except AssertionError as error:
+                print(error)
         participants = []
         while len(participants) < participants_num:
             for i in range(participants_num):
@@ -106,5 +108,5 @@ def show_credits():
     Projeto elaborado para a disciplina de Estrutura de Dados,
     do curso de Sistemas Para Internet — IFPB, no semestre 2023.2
     
-    Autor: Douglas Carneiro
+    Autores: Douglas Carneiro e Caue Trajano
     ''')

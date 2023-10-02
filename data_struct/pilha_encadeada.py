@@ -4,7 +4,7 @@ from data_struct.generic_data_struct import GenericDataStruct
 from exceptions import PilhaException
 
 
-class PilhaEncadeada(GenericDataStruct):
+class Pilha(GenericDataStruct):
     """
     Classe que implementa a estrutura de dados "Pilha" utilizando a técnica
     simplesmente encadeada.

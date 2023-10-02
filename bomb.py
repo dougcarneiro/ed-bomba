@@ -1,7 +1,7 @@
 from random import randint
 
-from data_struct.lista_encadeada_circular import ListaSimplesCircular
-from data_struct.pilha_encadeada import PilhaEncadeada
+from data_struct.lista_encadeada_circular import Lista
+from data_struct.pilha_encadeada import Pilha
 
 
 class BombSimulator:
@@ -10,7 +10,7 @@ class BombSimulator:
                  pointer=None,
                  round=1,
                  winners=1,
-                 time_min=5,
+                 time_min=4,
                  time_max=15,
                  removed_pile=None):
         self.__round = round
@@ -19,14 +19,14 @@ class BombSimulator:
         self.__time_min = time_min
         self.__time_max = time_max
         self.__participants = participants
-        self.__removed_pile = removed_pile if removed_pile else PilhaEncadeada()
+        self.__removed_pile = removed_pile if removed_pile else Pilha()
         self.prep_participants()
     
     def prep_participants(self):
-        if type(self.participants) is ListaSimplesCircular:
+        if type(self.participants) is Lista:
             return
         elif type(self.participants) is list:
-            linked_list = ListaSimplesCircular()
+            linked_list = Lista()
             for i in range(len(self.__participants)):
                 linked_list.insert(i+1, self.__participants[i])
             self.participants = linked_list
