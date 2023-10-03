@@ -88,12 +88,13 @@ class BombSimulator:
         self.__time_max = new_time_max
         
         
-    def print_summary(self, k=None):
+    def summary(self, k=None):
         participants = self.participants.__str__().replace(
             self.participants.data_type.value.title(), 'Participantes')
-        print((f'\n{participants}\nRound: {self.round}\n'
+        summary = (f'\n{participants}\nRound: {self.round}\n'
                f'Pointer: {self.pointer}\n'
-               f'Removido: {self.__removed_pile.top()}  k: {k}\n'))
+               f'Removido: {self.__removed_pile.top()}  k: {k}\n')
+        return summary
 
 
     def move_around(self, times, start_node=None):
@@ -115,8 +116,9 @@ class BombSimulator:
             times=k)
         node_position = self.participants.search_by_value(node.data)
         self.removed_pile.stack_up(node)
-        self.print_summary(k)
+        summary = self.summary(k)
         self.pointer = node.next
         self.participants.remove(node_position)
         if not self.participants.size == self.winners:
             self.round += 1
+        return summary
