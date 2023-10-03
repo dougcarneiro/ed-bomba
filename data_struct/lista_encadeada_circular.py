@@ -63,11 +63,3 @@ class Lista(GenericDataStruct):
         self.size -= 1
         return removed
     
-    def move_around(self, times, start_node=None):
-        count = 1
-        node = start_node if start_node else self.head
-        while count <= times:
-            node = node.next
-            count += 1
-        return node
-

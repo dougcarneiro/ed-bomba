@@ -94,13 +94,23 @@ class BombSimulator:
         print((f'\n{participants}\nRound: {self.round}\n'
                f'Pointer: {self.pointer}\n'
                f'Removido: {self.__removed_pile.top()}  k: {k}\n'))
+
+
+    def move_around(self, times, start_node=None):
+        count = 1
+        node = start_node if start_node else self.participants.head
+        while count <= times:
+            node = node.next
+            count += 1
+        return node
+
         
     def go(self):
         if not self.pointer:
             self.pointer = self.participants.get_node(
                 randint(1, self.participants.size))
         k = randint(self.time_min, self.time_max)
-        node = self.participants.move_around(
+        node = self.move_around(
             start_node=self.pointer if self.pointer else None,
             times=k)
         node_position = self.participants.search_by_value(node.data)
