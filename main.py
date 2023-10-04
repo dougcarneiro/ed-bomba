@@ -86,8 +86,8 @@ def start_simulation(participants,
     bomb = BombSimulator(participants=participants,
                          winners=winners_num)
     while bomb.winners < bomb.participants.size:
-        round = bomb.go()
-        print(round)
+        summary = bomb.go()
+        print(summary)
         input('Pressione uma tecla para continuar. ')
 
     show_winners(bomb)

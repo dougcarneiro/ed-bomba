@@ -1,3 +1,5 @@
+from random import randint
+
 from exceptions import ListaException, PilhaException
 from data_struct.data_type import DataType
 
@@ -132,9 +134,25 @@ class GenericDataStruct:
 
         cursor = self.__head
         count = 1
-
         while count <= self.size:
             if cursor.data == value:
                 return count
             cursor = cursor.next
             count += 1
+            
+    def get_next(self, value):
+        '''
+        Método para retornar a carga do próximo nó a partir da carga do nó indicado.
+        '''
+        node_position = self.search_by_value(value)
+        return self.get_node(node_position).next.data
+
+    def get_random_node(self, min=None, max=None):
+        '''
+        Método para retornar a carga de um nó aleatório.
+        Pode receber valores mínimo e máximo para o intervalo. Caso não receba,
+        irá definir o mínimo como 1 e o máximo como o tamanho atual da estrutura.
+        '''
+        min = min if min else 1
+        max = max if max else self.size
+        return self.get_node(randint(min, max)).data

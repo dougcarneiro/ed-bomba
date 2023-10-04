@@ -4,7 +4,7 @@ from main import menu
 from data.data import read_file
 
 
-FILE_PATH = 'data/participants_data645654654.txt'
+FILE_PATH = 'data/participants_data.txt'
 
 
 parser = argparse.ArgumentParser(prog='círculo-da-bomba',
