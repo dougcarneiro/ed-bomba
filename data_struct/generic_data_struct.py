@@ -4,10 +4,13 @@ from exceptions import ListaException, PilhaException
 from data_struct.data_type import DataType
 
 class GenericDataStruct:
+    '''
+    Super classe com atributos e métodos em comum em diversas estruturas de dados
+    '''
     def __init__(self):
         self.__head = None
         self.__size = 0
-        self.__data_type = DataType.UNDEFINED
+        self.__data_type = DataType.UNDEFINED # Tipo da estrutura: pilha, lista, etc
         
     def __str__(self):
         str = f'{self.__data_type.value.title() if self.__data_type != DataType.UNDEFINED else "Início"}: [ '
@@ -52,8 +55,8 @@ class GenericDataStruct:
     def is_empty(self):
         '''
         Método para verificar se a estrutura de dados está vazia ou não.
-        Ele retorna uma tupla (valor booliano indicando se está vazia ou não,
-        mensagem de erro para ser exibido em uma exception)
+        Ele retorna uma tupla (valor booliano indicando se está vazia ou não e
+        uma mensagem de erro para ser exibido em uma exception)
         '''
         if self.__data_type != DataType.UNDEFINED:
             if self.__size == 0:
@@ -94,19 +97,14 @@ class GenericDataStruct:
                 return except_msg
         return False
         
-    def get_node(self, position, minus=0, is_insert=False):
+    def get_node(self, position, minus=0):
         '''
         Método para buscar um nó por sua posição e retorná-lo
         *Esse método possui um parâmetro `minus` com valor default igual a 0.
         Esse parâmetro é particularmente necessário quando queremos buscar um
         nó N posições anterior ao nó da posição que estamos querendo
         '''
-        validation = self.validations(
-            position=(position - 1) if is_insert else None)
-        # Se estamos inserindo na lista, precisamos buscar o Nó imediatamente
-        # anterior a posição que estamos tentando inserir. Caso não estejamos
-        # inserindo nada na lista, apenas buscando o nó pela posição, enviamos
-        # False como argumento no parâmetro position
+        validation = self.validations(position=(position - 1))
         if validation:
             if self.__data_type == DataType.LISTA:
                 raise ListaException(validation)
@@ -121,7 +119,7 @@ class GenericDataStruct:
     
     def search_by_value(self, value):
         '''
-        Método para buscar um nó por valor e retornar sua posição.
+        Método para buscar um nó por valor/carga e retornar sua posição.
         Obs.: caso existam nós com valores duplicados, esse método vai retornar
         apenas o primeiro a ser encontrado.
         '''
@@ -147,12 +145,10 @@ class GenericDataStruct:
         node_position = self.search_by_value(value)
         return self.get_node(node_position).next.data
 
-    def get_random_node(self, min=None, max=None):
+    def get_random_node(self):
         '''
         Método para retornar a carga de um nó aleatório.
         Pode receber valores mínimo e máximo para o intervalo. Caso não receba,
         irá definir o mínimo como 1 e o máximo como o tamanho atual da estrutura.
         '''
-        min = min if min else 1
-        max = max if max else self.size
-        return self.get_node(randint(min, max)).data
+        return self.get_node(randint(1, self.size)).data

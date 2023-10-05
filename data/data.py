@@ -2,6 +2,11 @@ import re
 
 
 def read_file(file_path):
+    '''
+    Método para ler um arquivo externo e recuperar uma lista de participantes.
+    Obs.: garanta que os participantes estejam devidamente separados por vírgula
+        dentro do arquivo externo.
+    '''
     formatted_content = []
     try:
         with open(file_path, 'r') as arquivo:

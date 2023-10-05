@@ -5,38 +5,31 @@ from data_struct.pilha_encadeada import Pilha
 
 
 class BombSimulator:
+    '''
+    Classe que implementa um círculo da bomba
+    '''
     def __init__(self,
                  participants:list[str],
-                 pointer:str=None,
-                 round:int=1,
-                 winners:int=1,
-                 time_min:int=4,
-                 time_max:int=15,
-                 removed_pile:list[str]=None):
-        self.__round = round
+                 winners:int=1):
+        self.__round = 1
         self.__winners = winners
-        self.__pointer = pointer
-        self.__time_min = time_min
-        self.__time_max = time_max
+        self.__pointer = None
+        self.__time_min = 4
+        self.__time_max = 15
         self.__participants = participants
-        self.__removed_pile = removed_pile
+        self.__removed_pile = Pilha()
         self.prep_participants()
-        self.prep_removed_file()
     
     def prep_participants(self):
+        '''
+        Método para ler uma lista de participantes e os organiza dentro da 
+        estrutura de dados necessária para o círculo da bomba
+        '''
         linked_list = Lista()
         for i in range(len(self.__participants)):
             linked_list.insert(i+1, self.__participants[i])
         self.participants = linked_list
-            
-    def prep_removed_file(self):
-        removed_pile = Pilha()
-        if self.__removed_pile:
-            for elem in reversed(self.__removed_pile):
-                removed_pile.stack_up(elem)
-            self.removed_pile = removed_pile
-        self.removed_pile = removed_pile
-            
+
     
     @property
     def round(self):
@@ -49,10 +42,6 @@ class BombSimulator:
     @property
     def winners(self):
         return self.__winners
-    
-    @winners.setter
-    def winners(self, new_winners):
-        self.__winners = new_winners
         
     @property
     def pointer(self):
@@ -74,28 +63,19 @@ class BombSimulator:
     def removed_pile(self):
         return self.__removed_pile
     
-    @removed_pile.setter
-    def removed_pile(self, new_removed_pile):
-        self.__removed_pile = new_removed_pile
-        
     @property
     def time_min(self):
         return self.__time_min
     
-    @time_min.setter
-    def time_min(self, new_time_min):
-        self.__time_min = new_time_min
-        
     @property
     def time_max(self):
         return self.__time_max
-    
-    @time_max.setter
-    def time_max(self, new_time_max):
-        self.__time_max = new_time_max
-        
-        
-    def summary(self, path, k=None):
+
+
+    def summary(self, path, k):
+        '''
+        Método que formata e retorna uma string com as informações da rodada
+        '''
         participants = self.participants.__str__().replace(
             self.participants.data_type.value.title(), 'Participantes')
         summary = (f'\n{participants}\nRound: {self.round}\n'
@@ -106,6 +86,10 @@ class BombSimulator:
 
 
     def move_around(self, times, start_node):
+        '''
+        Método que circula a bomba entre os participantes, partindo de um
+        ponteiro, e retorna o valor do nó em que a bomba parou
+        '''
         node = start_node
         count = 1
         str = '['
@@ -118,18 +102,22 @@ class BombSimulator:
 
 
     def go(self):
+        '''
+        Método inicia a rodada e faz a bomba circular uma vez entre os 
+        participantes
+        '''
         if not self.pointer:
-            self.pointer = self.participants.get_random_node(min=self.time_min,
-                                                             max=self.time_max)
+            self.pointer = self.participants.get_random_node()
         k = randint(self.time_min, self.time_max)
         node_data, next_data, path = self.move_around(
-            start_node=self.pointer if self.pointer else None,
-            times=k)
+            start_node=self.pointer,times=k)
         node_position = self.participants.search_by_value(node_data)
         self.removed_pile.stack_up(node_data)
         summary = self.summary(k=k, path=path)
         self.pointer = next_data
         self.participants.remove(node_position)
-        if not self.participants.size == self.winners:
+        # Verificamos se o número restante de participantes está igual ao de vencedores
+        # antes de incrementar a rodada/round
+        if not (self.participants.size == self.winners):
             self.round += 1
         return summary

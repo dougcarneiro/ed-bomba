@@ -4,6 +4,7 @@ from main import menu
 from data.data import read_file
 
 
+# caminho do arquivo com os participantes já preenchidos
 FILE_PATH = 'data/participants_data.txt'
 
 
