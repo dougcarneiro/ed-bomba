@@ -72,7 +72,7 @@ class BombSimulator:
         return self.__time_max
 
 
-    def summary(self, path, k):
+    def summary(self, path:str, k:int):
         '''
         Método que formata e retorna uma string com as informações da rodada
         '''
@@ -85,7 +85,7 @@ class BombSimulator:
         return summary
 
 
-    def move_around(self, times, start_node):
+    def move_around(self, times:int, start_node:str):
         '''
         Método que circula a bomba entre os participantes, partindo de um
         ponteiro, e retorna o valor do nó em que a bomba parou

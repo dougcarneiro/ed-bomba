@@ -12,14 +12,14 @@ class Lista(GenericDataStruct):
         super().__init__() # Herdamos os atributos e métodos da super classe
         self.data_type = DataType.LISTA # Tipo da estrutura: pilha, lista, etc
 
-    def edit_node_data(self, position, data):
+    def edit_node_data(self, position:int, data:str):
         '''
         Método para modificar a carga de um nó a partir de sua posição
         '''
         cursor = self.get_node(position)
         cursor.data = data
 
-    def insert(self, position, data):
+    def insert(self, position:int, data:str):
         '''
         Método para inserir um novo elemento na lista
         '''
@@ -49,7 +49,7 @@ class Lista(GenericDataStruct):
         cursor.next = new_node
         self.size += 1
 
-    def remove(self, position):
+    def remove(self, position:int) -> str:
         '''
         Método para eliminar um nó da lista a partir de sua posição
         '''
@@ -69,5 +69,5 @@ class Lista(GenericDataStruct):
             previous.next = cursor.next
 
         self.size -= 1
-        return removed
+        return removed.data
     

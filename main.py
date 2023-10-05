@@ -1,7 +1,7 @@
 from bomb import BombSimulator
 
 
-def menu(content_data=None):
+def menu(content_data:list[str]=None):
     '''
     Método que exibe um menu de opções para o usuário
     '''
@@ -32,16 +32,16 @@ def menu(content_data=None):
             return
 
 
-def new_simulation(content_data=None):
+def new_simulation(content_data:list[str]=None):
     '''
     Método que prepara a simulação do círculo da bomba. Esse método pode receber uma
     lista de participantes, caso contrário, será necessário informar um a um antes
     de iniciar o jogo
     '''
-    winners_num_error = 'O número de vencedores não pode ser maior que o de participantes'
+    winners_num_error = 'O número de vencedores precisa ser maior que o de participantes'
     parti_name_error = 'O nome do participante deve ter ao menos dois caracteres.'
     parti_duplicated_error = 'já está participando.'
-    if content_data and len(content_data) > 1:
+    if content_data and len(content_data) > 2:
         # se recebemos uma lista de participantes, devemos validar todos eles
         try:
             for item in content_data:
@@ -62,7 +62,7 @@ def new_simulation(content_data=None):
                 input('Digite a quantidade de vencedores: '))
             # validamos que o número de vencedores inseridos é igual ou maior que 1
             assert winners_num >= 1, 'Deve ter ao menos um vencedor.'
-            if content_data:
+            if content_data and len(content_data) > 2:
                 # validamos se o número de vencedores inseridos é maior que o
                 # número de participantes recebidos
                 assert len(content_data) > winners_num, winners_num_error
@@ -71,7 +71,7 @@ def new_simulation(content_data=None):
             print('Insira um valor válido.')
         except AssertionError as error:
             print(error)
-    if not content_data or len(content_data) < 1:
+    if not content_data or len(content_data) < 2:
         # se não recebermos participantes previamente, o programa segue para
         # a inserção manual da quantidade de participantes e seus respectivos nomes
         while True:
@@ -105,8 +105,8 @@ def new_simulation(content_data=None):
     start_simulation(participants, winners_num)
 
 
-def start_simulation(participants,
-                     winners_num=None):
+def start_simulation(participants:list[str],
+                     winners_num:int=None):
     '''
     Método que inicia a simulação do círculo da bomba. Esse método recebe os dados
     já validados e prontos para dar início ao jogo
@@ -122,7 +122,7 @@ def start_simulation(participants,
     show_winners(bomb)
 
 
-def show_winners(bomb):
+def show_winners(bomb:BombSimulator):
     '''
     Método para exibir o(s) vencedor(es) e o caminho para vitória
     '''

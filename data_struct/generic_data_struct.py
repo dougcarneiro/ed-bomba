@@ -1,5 +1,6 @@
 from random import randint
 
+from data_struct.node import Node
 from exceptions import ListaException, PilhaException
 from data_struct.data_type import DataType
 
@@ -64,7 +65,7 @@ class GenericDataStruct:
             else:
                 return (False, None)
             
-    def check_position(self, position, plus=0):
+    def check_position(self, position: int, plus:int=0) -> tuple[bool, str or None]:
         '''
         Método para verificar se a posição inserida é válida (existe ou não).
         Ele retorna uma tupla (valor booleano indicando se está válido ou não,
@@ -79,7 +80,7 @@ class GenericDataStruct:
             return (False,
                     f'A posição inserida não existe na {self.__data_type.value}.')
         
-    def validations(self, position=None):
+    def validations(self, position:int=None) -> bool or str:
         '''
         Método responsável pelas validações. Esse método verifica se a lista
         está vazia e se a posição é inválida, necessariamente nessa ordem.
@@ -97,7 +98,7 @@ class GenericDataStruct:
                 return except_msg
         return False
         
-    def get_node(self, position, minus=0):
+    def get_node(self, position:int, minus:int=0) -> Node:
         '''
         Método para buscar um nó por sua posição e retorná-lo
         *Esse método possui um parâmetro `minus` com valor default igual a 0.
@@ -117,7 +118,7 @@ class GenericDataStruct:
             count += 1
         return cursor
     
-    def search_by_value(self, value):
+    def search_by_value(self, value:str) -> str:
         '''
         Método para buscar um nó por valor/carga e retornar sua posição.
         Obs.: caso existam nós com valores duplicados, esse método vai retornar
@@ -138,14 +139,14 @@ class GenericDataStruct:
             cursor = cursor.next
             count += 1
             
-    def get_next(self, value):
+    def get_next(self, value:str) -> str:
         '''
         Método para retornar a carga do próximo nó a partir da carga do nó indicado.
         '''
         node_position = self.search_by_value(value)
         return self.get_node(node_position).next.data
 
-    def get_random_node(self):
+    def get_random_node(self) -> str:
         '''
         Método para retornar a carga de um nó aleatório.
         Pode receber valores mínimo e máximo para o intervalo. Caso não receba,

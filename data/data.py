@@ -1,7 +1,7 @@
 import re
 
 
-def read_file(file_path):
+def read_file(file_path: str) -> list[str] or None:
     '''
     Método para ler um arquivo externo e recuperar uma lista de participantes.
     Obs.: garanta que os participantes estejam devidamente separados por vírgula

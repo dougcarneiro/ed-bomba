@@ -26,7 +26,7 @@ class Pilha(GenericDataStruct):
             raise PilhaException(validation)
     
 
-    def stack_up(self, data):
+    def stack_up(self, data: str):
         """ 
         Método que adiciona um novo elemento ao topo da pilha
         """
@@ -36,7 +36,7 @@ class Pilha(GenericDataStruct):
         self.size += 1
 
 
-    def unstack(self):
+    def unstack(self) -> str:
         """
         Método que remove um elemento do topo da pilha e devolve 
         a carga correspondente a esse elemento removido.
@@ -47,6 +47,6 @@ class Pilha(GenericDataStruct):
             node = self.head
             self.head = self.head.next
             self.size -= 1
-            return node
+            return node.data
         else:
             raise PilhaException(validation)
