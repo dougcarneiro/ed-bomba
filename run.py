@@ -1,6 +1,6 @@
 import argparse
 
-from main import menu
+from bomb.main import menu
 from data.data import read_file
 
 

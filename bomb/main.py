@@ -1,4 +1,4 @@
-from bomb import BombSimulator
+from bomb.bomb import BombSimulator
 
 
 def menu(content_data:list[str]=None):

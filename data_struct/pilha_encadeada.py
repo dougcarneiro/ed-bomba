@@ -1,7 +1,7 @@
 from data_struct.node import Node
 from data_struct.data_type import DataType
 from data_struct.generic_data_struct import GenericDataStruct
-from exceptions import PilhaException
+from data_struct.exceptions import PilhaException
 
 
 class Pilha(GenericDataStruct):

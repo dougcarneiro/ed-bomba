@@ -1,7 +1,7 @@
 from random import randint
 
 from data_struct.node import Node
-from exceptions import ListaException, PilhaException
+from data_struct.exceptions import ListaException, PilhaException
 from data_struct.data_type import DataType
 
 class GenericDataStruct:
